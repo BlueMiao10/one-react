@@ -7,6 +7,20 @@ const React = {
     }
   }
 };
+function setAttribute(node, attrs) {
+  if(!attrs) return;
+
+  for(let key in attrs) {
+    if(key.startsWith('on')) {
+      node[key.toLocaleLowerCase()] = attrs[key];
+    } else if(key === 'style') {
+      Object.assign(node.style, attrs[key]);
+    } else {
+      node[key] = attrs[key];
+    }
+  }
+}
+
 
 function render(vDom,container){
   let node
@@ -15,6 +29,7 @@ function render(vDom,container){
   }
   if (typeof vDom === 'object'){
     node = document.createElement(vDom.tag)
+    setAttribute(node,vDom.attrs)
     vDom.children.forEach(childVDom => render(childVDom,node))
   }
   container.appendChild(node)
@@ -27,11 +42,14 @@ const ReactDom = {
   }
 }
 
-let div = (<div className="header">
-  <span>hello world</span>
-  <br/>
-  <span>一起向未来</span>
-</div>);
-  console.log(div)
+let styleObj = {
+  color:'blue',
+  fontSize: '30px'
+};
 
-ReactDom.render(div,document.body)
+ReactDom.render((
+  <div className="wrap">
+    <button className="btn" onClick={()=> console.log('click me')}> Click me!</button>
+    <p style={styleObj}>I have style</p>
+  </div>
+), document.body);
