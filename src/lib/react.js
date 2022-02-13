@@ -1,3 +1,5 @@
+import ReactDom from "./react-dom";
+
 const createElement = function (tag, attrs, ...children) {
   return {
     tag,
@@ -9,11 +11,12 @@ const createElement = function (tag, attrs, ...children) {
 class component {
   constructor(props) {
     this.props = props
-    this.states = {}
+    this.state = {}
   }
 
   setState(newState) {
-    Object.assign(this.states, newState)
+    Object.assign(this.state, newState)
+    ReactDom.renderComponent(this)
   }
 }
 

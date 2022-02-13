@@ -11,7 +11,6 @@ function setAttribute(node, attrs) {
         node[key] = attrs[key];
       }
     }
-
   }
 }
 
@@ -31,6 +30,7 @@ function createDomFromVDom(vDom) {
       let component = new vDom.tag(vDom.attrs)
       let vNode = component.render()
       node = createDomFromVDom(vNode)
+      component.$root = node
     } else {
       node = document.createElement(vDom.tag)
       setAttribute(node, vDom.attrs)
@@ -39,12 +39,19 @@ function createDomFromVDom(vDom) {
   }
   return node
 }
-
+function renderComponent(component){
+  let vDom = component.render()
+  let node = createDomFromVDom(vDom)
+  if(component.$root){
+    component.$root.parentNode.replaceChild(node,component.$root)
+  }
+}
 const ReactDom = {
   render(vDom, container) {
     container.innerHTML = '';
     render(vDom, container);
-  }
+  },
+  renderComponent
 }
 
 export default ReactDom
