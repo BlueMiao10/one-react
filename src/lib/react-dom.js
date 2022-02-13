@@ -1,10 +1,10 @@
 function setAttribute(node, attrs) {
-  if(!attrs) return;
+  if (!attrs) return;
 
-  for(let key in attrs) {
-    if(key.startsWith('on')) {
+  for (let key in attrs) {
+    if (key.startsWith('on')) {
       node[key.toLocaleLowerCase()] = attrs[key];
-    } else if(key === 'style') {
+    } else if (key === 'style') {
       Object.assign(node.style, attrs[key]);
     } else {
       node[key] = attrs[key];
@@ -13,15 +13,15 @@ function setAttribute(node, attrs) {
 }
 
 
-function render(vDom,container){
+function render(vDom, container) {
   let node
-  if(typeof vDom === 'string'){
+  if (typeof vDom === 'string') {
     node = document.createTextNode(vDom)
   }
-  if (typeof vDom === 'object'){
+  if (typeof vDom === 'object') {
     node = document.createElement(vDom.tag)
-    setAttribute(node,vDom.attrs)
-    vDom.children.forEach(childVDom => render(childVDom,node))
+    setAttribute(node, vDom.attrs)
+    vDom.children.forEach(childVDom => render(childVDom, node))
   }
   container.appendChild(node)
 }

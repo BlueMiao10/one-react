@@ -1,5 +1,5 @@
 const React = {
-  createElement(tag,attrs,...children) {
+  createElement(tag, attrs, ...children) {
     return {
       tag,
       attrs,
