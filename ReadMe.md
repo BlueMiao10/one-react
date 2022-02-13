@@ -285,3 +285,7 @@ npm start
 创建 `src/lib` 目录，在此目录下创建`src/lib/react.js` 和 `src/lib/react-dom.js` 文件
 将相应的代码进行迁移
 并在index.js中引入相应的文件
+
+## 如何实现class组件
+
+在实现一个组件的时候，用一个标签把所有的DOM结构都包裹起来，并且这个标签要是大写的
